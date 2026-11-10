@@ -19,42 +19,37 @@
             border-bottom: 2px solid #ccc;
             padding-bottom: 10px;
         }
-        .instructions {
-            background: #fff;
-            padding: 15px;
-            border-left: 4px solid #0066cc;
-            margin-bottom: 20px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        h2 {
+            font-size: 16px;
+            color: #0066cc;
+            margin-top: 25px;
         }
         .form-group {
             background: #fff;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
         }
         label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
+            font-size: 14px;
         }
-        input[type="text"], select {
+        /* Editable box where <u> tags instantly render as underlines */
+        .editable-box {
             width: 100%;
+            height: auto; overflow: visible;
+            white-space: pre-wrap            ;
             padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        textarea {
-            width: 100%;
-            height: auto;
-            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             font-family: monospace;
             font-size: 13px;
             box-sizing: border-box;
+            background-color: #fff;
+            overflow-y: auto;
             resize: vertical;
         }
         button {
@@ -71,6 +66,20 @@
         }
         #output-area {
             margin-top: 20px;
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+        }
+        #result-box {
+            width: 100%;
+            height: 250px;
+            font-family: monospace;
+            font-size: 12px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
         }
     </style>
 </head>
@@ -3043,22 +3052,27 @@ Further assistance in electronically accessing the publication, or about PAIR, i
 Office of Data Managment, Application Assistance Unit (571) 272-4000, or (571) 272-4200, or 1-888-786-0101
         </textarea>
     </div>
-<script>
-function formatData() {
-    const category = document.getElementById('doc-category').value;
-    const docName = document.getElementById('doc-name').value || 'Unnamed Document';
-    const textContent = document.getElementById('doc-text').value;
 
-    const formattedOutput = `=== [SECTION: ${category}] ===\nDOCUMENT: ${docName}\n\n${textContent}\n\n==============================\n`;
+<script>
+function compileText() {
+    let doc1 = document.getElementById('doc_1').innerHTML.trim();
+    let doc2 = document.getElementById('doc_2').innerHTML.trim();
     
-    const outputArea = document.getElementById('output-area');
-    const resultBox = document.getElementById('result-box');
+    let output = "=== COMPILED DOSSIER TEXT ===\n\n";
+    if(doc1 && doc1 !== "<br>") output += "--- SPECIFICATION ---\n" + doc1 + "\n\n";
+    if(doc2 && doc2 !== "<br>") output += "--- CLAIMS ---\n" + doc2 + "\n\n";
+    
+    let outputArea = document.getElementById('output-area');
+    let resultBox = document.getElementById('result-box');
     
     outputArea.style.display = 'block';
-    resultBox.value = formattedOutput;
+    resultBox.value = output;
     resultBox.select();
 }
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
